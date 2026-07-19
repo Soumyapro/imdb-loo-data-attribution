@@ -8,12 +8,12 @@ Most feature-importance tools tell you which *words* mattered. This project asks
 
 ## Method
 
-1. **Data** - [IMDB Dataset of 50K Movie Reviews](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) (Kaggle), deduplicated from 50,000 → 49,582 rows.
-2. **Sampling** — a stratified random sample of 1,000 reviews, since exact LOO requires one full retrain per training point and doesn't scale to the full dataset.
-3. **Cleaning** — light-touch only: strip HTML artifacts (`<br />`) and URLs, collapse whitespace. Punctuation, casing, and contractions are deliberately preserved, since the embedding model below uses them as genuine semantic signal.
-4. **Featurization** — sentence embeddings via [`all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) (384-dim), chosen over TF-IDF because it captures context and negation, and its low dimensionality keeps hundreds of logistic regression refits fast.
-5. **Model** — logistic regression, 80/20 train/test split (800 / 200), stratified.
-6. **Attribution** — exact LOO: for each of the 800 training points, remove it, refit logistic regression from scratch, and record the change in test log loss vs. the full-training baseline.
+1. **Data** -> [IMDB Dataset of 50K Movie Reviews](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) (Kaggle), deduplicated from 50,000 → 49,582 rows.
+2. **Sampling** -> a stratified random sample of 1,000 reviews, since exact LOO requires one full retrain per training point and doesn't scale to the full dataset.
+3. **Cleaning** -> light-touch only: strip HTML artifacts (`<br />`) and URLs, collapse whitespace. Punctuation, casing, and contractions are deliberately preserved, since the embedding model below uses them as genuine semantic signal.
+4. **Featurization** -> sentence embeddings via [`all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) (384-dim), chosen over TF-IDF because it captures context and negation, and its low dimensionality keeps hundreds of logistic regression refits fast.
+5. **Model** -> logistic regression, 80/20 train/test split (800 / 200), stratified.
+6. **Attribution** -> exact LOO: for each of the 800 training points, remove it, refit logistic regression from scratch, and record the change in test log loss vs. the full-training baseline.
 
 ## Results
 
